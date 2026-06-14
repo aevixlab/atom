@@ -1,0 +1,35 @@
+{
+	"name": "@aevix/atom",
+	"module": "lib/index.ts",
+	"version": "0.0.1",
+	"description": "Framework-agnostic UI component library built on native Web Components, with wrappers for Svelte, React, Vue, and Angular",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/AevixDev/atom"
+	},
+	"license": "MIT",
+	"author": {
+		"email": "ShahTheShah@ya.ru",
+		"name": "@naylour",
+		"url": "https://github.com/naylour"
+	},
+	"keywords": [
+		"web-components",
+		"custom-elements",
+		"ui-library",
+		"svelte",
+		"react",
+		"vue",
+		"typescript",
+		"design-system",
+		"frontend",
+		"aevix"
+	],
+	"type": "module",
+	"devDependencies": {
+		"@types/bun": "latest"
+	},
+	"peerDependencies": {
+		"typescript": "^5"
+	}
+}
