@@ -4,15 +4,21 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "bun --bun vite",
         "build": "bun --bun vite build",
         "preview": "vite preview"
     },
     "dependencies": {
-        "lit": "^3.3.3"
+        "lit": "^3.3.3",
+        "svelte": "^5.56.4"
     },
     "devDependencies": {
-        "typescript": "~6.0.2",
+        "@playwright/test": "^1.61.1",
+        "@sveltejs/vite-plugin-svelte": "^7.1.2",
+        "@tsconfig/svelte": "^5.0.8",
+        "@types/bun": "catalog:",
+        "playwright": "^1.61.1",
+        "typescript": "catalog:",
         "vite": "^8.1.0"
     },
     "sideEffects": false

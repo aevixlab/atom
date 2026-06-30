@@ -1,5 +1,7 @@
 import { css, html, LitElement } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators/custom-element.js';
+import { property } from 'lit/decorators/property.js';
+import { syncAttr } from '../../utils/attrs';
 
 @customElement('atom-progress')
 export class AtomProgress extends LitElement {
@@ -67,22 +69,14 @@ export class AtomProgress extends LitElement {
         this.#updateAria();
     }
 
-    #syncAttr(name: string, value: string | null) {
-        if (value === null) {
-            this.removeAttribute(name);
-        } else {
-            this.setAttribute(name, value);
-        }
-    }
-
     #updateAria() {
         const i = this.#internals;
 
         if (this.indeterminate) {
-            this.#syncAttr('aria-valuenow', null);
-            this.#syncAttr('aria-valuemin', null);
-            this.#syncAttr('aria-valuemax', null);
-            this.#syncAttr('aria-valuetext', null);
+            syncAttr(this, 'aria-valuenow', null);
+            syncAttr(this, 'aria-valuemin', null);
+            syncAttr(this, 'aria-valuemax', null);
+            syncAttr(this, 'aria-valuetext', null);
 
             i.ariaValueNow = null;
             i.ariaValueMin = null;
@@ -94,10 +88,10 @@ export class AtomProgress extends LitElement {
             const max = String(this.max);
             const text = `${this.value} of ${this.max}`;
 
-            this.#syncAttr('aria-valuenow', now);
-            this.#syncAttr('aria-valuemin', min);
-            this.#syncAttr('aria-valuemax', max);
-            this.#syncAttr('aria-valuetext', text);
+            syncAttr(this, 'aria-valuenow', now);
+            syncAttr(this, 'aria-valuemin', min);
+            syncAttr(this, 'aria-valuemax', max);
+            syncAttr(this, 'aria-valuetext', text);
 
             i.ariaValueNow = now;
             i.ariaValueMin = min;
@@ -105,11 +99,11 @@ export class AtomProgress extends LitElement {
             i.ariaValueText = text;
         }
 
-        this.#syncAttr('aria-label', this.label || null);
+        syncAttr(this, 'aria-label', this.label || null);
         i.ariaLabel = this.label || null;
 
         const disabled = this.hasAttribute('disabled') ? 'true' : null;
-        this.#syncAttr('aria-disabled', disabled);
+        syncAttr(this, 'aria-disabled', disabled);
         i.ariaDisabled = disabled;
     }
 

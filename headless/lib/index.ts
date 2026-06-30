@@ -1,1 +1,1 @@
-export { AtomProgress } from './components';
+export { AtomBadge, AtomProgress } from './components';
