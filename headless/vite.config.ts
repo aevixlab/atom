@@ -1,37 +1,74 @@
-import { svelte } from '@sveltejs/vite-plugin-svelte';
 import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
 export default defineConfig({
-    plugins: [
-        svelte({
-            compilerOptions: {
-                runes: ({ filename }) =>
-                    filename.split(/[/\\]/).includes('node_modules') ? undefined : true,
-
-                customElement: true,
-            },
-        }),
-    ],
-
     build: {
-        target: 'esnext',
-        sourcemap: true,
+        target: 'es2022',
+        sourcemap: false,
         cssMinify: 'lightningcss',
-        license: true,
-        manifest: true,
         minify: 'oxc',
 
         lib: {
             entry: {
-                index: './src/lib',
-                components: './src/lib/components',
+                index: './lib/index.ts',
+            },
+            name: 'AevixAtom',
+            formats: ['es'],
+        },
+
+        rolldownOptions: {
+            // external: ['lit', 'lit/directives/*', '@lit/reactive-element'],
+            platform: 'browser',
+
+            treeshake: {
+                annotations: true,
+                moduleSideEffects: [{ test: /\.js$/, sideEffects: true }],
+                propertyReadSideEffects: false,
+                propertyWriteSideEffects: false,
+                unknownGlobalSideEffects: false,
             },
 
-            name: '@aevix/atom-components',
-            formats: ['es'],
+            optimization: {
+                inlineConst: { mode: 'all', pass: 3 },
+                pifeForModuleWrappers: true,
+            },
+
+            experimental: {
+                chunkOptimization: true,
+                lazyBarrel: true,
+            },
+
+            output: {
+                cleanDir: true,
+                format: 'es',
+
+                minify: {
+                    compress: {
+                        target: 'esnext',
+                    },
+                    codegen: true,
+                    mangle: true,
+                },
+
+                minifyInternalExports: true,
+                keepNames: false,
+                comments: {
+                    legal: false,
+                },
+
+                // entryFileNames: '[name].js',
+                // chunkFileNames: '[name]-[hash].js',
+                hashCharacters: 'base64',
+            },
         },
     },
 
-    css: { transformer: 'lightningcss' },
+    css: {
+        transformer: 'lightningcss',
+    },
+
+    define: {
+        DEV: false,
+        __DEV__: false,
+        'process.env.NODE_ENV': '"production"',
+    },
 });
